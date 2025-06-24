@@ -23,7 +23,7 @@ TEMPLATE = '''
 </html>
 '''
 
-@app.route("/")
+@app.route("/quotes/")
 def home():
     res = requests.get("http://zenquotes.io/api/random")
     data = res.json()[0]  # ZenQuotes returns a list with one dict
