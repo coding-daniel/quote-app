@@ -1,7 +1,8 @@
 from flask import Flask, render_template_string
 import requests
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='', static_folder='static')
+app.url_map.strict_slashes = False
 
 TEMPLATE = '''
 <!DOCTYPE html>
