@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, render_template_string
+from flask import Flask, render_template_string
 import requests
 
 app = Flask(__name__)
@@ -24,9 +24,12 @@ TEMPLATE = '''
 
 @app.route("/")
 def home():
-    res = requests.get("https://api.quotable.io/random")
-    data = res.json()
-    return render_template_string(TEMPLATE, quote=data["content"], author=data["author"])
+    res = requests.get("http://zenquotes.io/api/random")
+    data = res.json()[0]  # ZenQuotes returns a list with one dict
+    quote = data["q"]
+    author = data["a"]
+    return render_template_string(TEMPLATE, quote=quote, author=author)
 
 if __name__ == "__main__":
+    print("Starting Flask app...")
     app.run(host="0.0.0.0", port=5000)
